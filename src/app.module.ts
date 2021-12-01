@@ -7,7 +7,7 @@ import { LibrariesModule } from './libraries/libraries.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://astartseva:!!!8904ALal8904!!!@cluster0.9gnlz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'), 
+    MongooseModule.forRoot('mongodb+srv://astartseva:alyona@libraries-nestjs.9gnlz.mongodb.net/libraries-nestjs?retryWrites=true&w=majority'), 
     LibrariesModule
   ],
   controllers: [AppController],
