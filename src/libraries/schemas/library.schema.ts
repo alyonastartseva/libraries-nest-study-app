@@ -20,6 +20,7 @@ export class Library {
 
   @Prop()
   description: string;
+  
 }
 
 export const LibrarySchema = SchemaFactory.createForClass(Library);
