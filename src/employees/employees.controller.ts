@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
+
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-
 import { EmployeesService } from './employees.service';
 
 @Controller('employees')
@@ -27,7 +27,7 @@ export class EmployeesController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.employeesService.remove(id)
+    return this.employeesService.remove(id);
   }
 
   @Put(':id')
