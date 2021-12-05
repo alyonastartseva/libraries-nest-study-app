@@ -12,7 +12,7 @@ import { BooksModule } from './books/books.module';
     LibrariesModule,
     EmployeesModule,
     BooksModule,
-    MongooseModule.forRoot('mongodb+srv://astartseva:alyona@libraries-nestjs.9gnlz.mongodb.net/libraries-nestjs?retryWrites=true&w=majority')
+    MongooseModule.forRoot('mongodb+srv://astartseva:alyona@cluster0.9gnlz.mongodb.net/libraries-app?retryWrites=true&w=majority')
   ],
   controllers: [AppController],
   providers: [AppService],
