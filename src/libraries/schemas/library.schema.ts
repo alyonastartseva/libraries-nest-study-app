@@ -1,7 +1,10 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from 'mongoose';
+import * as mongoose from "mongoose";
 
-export type LibraryDocument = Library & Document;
+import { Employee } from "src/employees/schemas/employee.schema";
+import { Book } from "src/books/schema/book.schema";
+
+export type LibraryDocument = Library & mongoose.Document;
 
 @Schema()
 export class Library {
@@ -20,6 +23,12 @@ export class Library {
 
   @Prop()
   description: string;
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }] })
+  employees: Employee[];
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }] })
+  books: Book[];
   
 }
 

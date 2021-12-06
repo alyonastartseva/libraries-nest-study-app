@@ -1,7 +1,9 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from 'mongoose';
+import * as mongoose from "mongoose";
 
-export type BookDocument = Book & Document;
+import { Library } from "src/libraries/schemas/library.schema";
+
+export type BookDocument = Book & mongoose.Document;
 
 @Schema()
 export class Book {
@@ -20,6 +22,9 @@ export class Book {
 
   @Prop()
   numberCompies: number;
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Library' }] })
+  library: Library;
 
 }
 
