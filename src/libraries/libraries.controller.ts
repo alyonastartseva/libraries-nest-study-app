@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Employee } from 'src/employees/schemas/employee.schema';
 
 import { CreateLibraryDto } from './dto/create-library.dto';
 import { UpdateLibraryDto } from './dto/update-library.dto';
@@ -34,5 +35,10 @@ export class LibrariesController {
   @Put(':id')
   update(@Param('id') id: string, @Body() updateLibraryDto: UpdateLibraryDto): Promise<Library> {
     return this.librariesService.update(id, updateLibraryDto);
+  }
+
+  @Get('employees/:id')
+  getEmployees(@Param('id') id: string): Promise<Employee[]> {
+    return this.librariesService.getEmployees(id);
   }
 }

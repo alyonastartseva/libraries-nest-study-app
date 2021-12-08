@@ -5,6 +5,7 @@ import { Model } from "mongoose";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { UpdateEmployeeDto } from "./dto/update-employee.dto";
 import { Employee, EmployeeDocument } from "./schemas/employee.schema";
+import { Library, LibraryDocument } from "src/libraries/schemas/library.schema";
 
 @Injectable()
 export class EmployeesService {
@@ -12,15 +13,18 @@ export class EmployeesService {
   constructor(@InjectModel(Employee.name) private employeeModel: Model<EmployeeDocument>) {}
 
   async getAll(): Promise<Employee[]> {
-    return this.employeeModel.find().exec();
+    return await this.employeeModel.find().exec();
   }
 
   async getById(id: string): Promise<Employee> {
     return this.employeeModel.findById(id);
   }
 
-  async create(employeeDto: CreateEmployeeDto): Promise<Employee> {
-    const newEmployee = new this.employeeModel(employeeDto);
+  async create(library: string, employeeDto: CreateEmployeeDto): Promise<Employee> {
+    const newEmployee = new this.employeeModel({
+      ...employeeDto,
+      library
+    });
     return newEmployee.save();
   }
 

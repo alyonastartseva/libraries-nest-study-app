@@ -23,7 +23,7 @@ export class Employee {
   @Prop()
   startedWork: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Library' }] })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Library' })
   library: Library;
 
 }

@@ -3,6 +3,7 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put }
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { EmployeesService } from './employees.service';
+import { Employee } from './schemas/employee.schema';
 
 @Controller('employees')
 export class EmployeesController {
@@ -10,7 +11,7 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Get()
-  getAll() {
+  getAll(): Promise<Employee[]> {
     return this.employeesService.getAll();
   }
 
@@ -19,10 +20,10 @@ export class EmployeesController {
     return this.employeesService.getById(id);
   }
 
-  @Post()
+  @Post(':libraryId')
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    return this.employeesService.create(createEmployeeDto);
+  create(@Param('libraryId') libraryId: string, @Body() createEmployeeDto: CreateEmployeeDto) {
+    return this.employeesService.create(libraryId, createEmployeeDto);
   }
 
   @Delete(':id')
