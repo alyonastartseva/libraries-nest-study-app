@@ -10,21 +10,26 @@ import { Library, LibraryDocument } from "src/libraries/schemas/library.schema";
 @Injectable()
 export class EmployeesService {
 
-  constructor(@InjectModel(Employee.name) private employeeModel: Model<EmployeeDocument>) {}
+  constructor(@InjectModel(Employee.name) private employeeModel: Model<EmployeeDocument>,
+  @InjectModel(Library.name) private libraryModel: Model<LibraryDocument>) {}
 
   async getAll(): Promise<Employee[]> {
-    return await this.employeeModel.find().exec();
+    return await this.employeeModel.find().populate('library');
   }
 
   async getById(id: string): Promise<Employee> {
-    return this.employeeModel.findById(id);
+    return this.employeeModel.findById(id).populate('library');
   }
 
   async create(library: string, employeeDto: CreateEmployeeDto): Promise<Employee> {
     const newEmployee = new this.employeeModel({
-      ...employeeDto,
-      library
+      library,
+      ...employeeDto
     });
+    
+    const libraryModel = await this.libraryModel.findById(library);
+    (await libraryModel.populate('employees')).employees.push(newEmployee);
+    libraryModel.save();
     return newEmployee.save();
   }
 

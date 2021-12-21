@@ -6,6 +6,7 @@ import { CreateLibraryDto } from "./dto/create-library.dto";
 import { UpdateLibraryDto } from "./dto/update-library.dto";
 import { Library, LibraryDocument } from "./schemas/library.schema";
 import { Employee } from "src/employees/schemas/employee.schema";
+import { Book } from "src/books/schema/book.schema";
 
 @Injectable()
 export class LibrariesService {
@@ -13,11 +14,11 @@ export class LibrariesService {
   constructor(@InjectModel(Library.name) private libraryModel: Model<LibraryDocument>) {}
 
   async getAll(): Promise<Library[]> {
-    return await this.libraryModel.find().exec();
+    return await this.libraryModel.find().populate('employees');
   }
 
   async getById(id: string): Promise<Library> {
-    return await this.libraryModel.findById(id).exec();
+    return await this.libraryModel.findById(id).populate('employees');
   }
 
   async create(libraryDto: CreateLibraryDto): Promise<Library> {
@@ -35,7 +36,12 @@ export class LibrariesService {
 
   async getEmployees(id: string): Promise<Employee[]> {
     const library = await this.libraryModel.findById(id);
-    return (await library.populate("employees")).employees;
+    return (await library.populate('employees')).employees;
+  }
+
+  async getBooks(id: string): Promise<Book[]> {
+    const library = await this.libraryModel.findById(id);
+    return (await library.populate('books')).books;
   }
 
 }

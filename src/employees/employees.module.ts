@@ -4,6 +4,8 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { EmployeesController } from "./employees.controller";
 import { EmployeesService } from "./employees.service";
 import { Employee, EmployeeSchema } from "./schemas/employee.schema";
+import { Library } from "src/libraries/schemas/library.schema";
+import { LibrarySchema } from "src/libraries/schemas/library.schema";
 
 @Module({
   imports: [
@@ -11,6 +13,10 @@ import { Employee, EmployeeSchema } from "./schemas/employee.schema";
       {
         name: Employee.name,
         schema: EmployeeSchema
+      },
+      {
+        name: Library.name,
+        schema: LibrarySchema
       }
     ])
   ],
