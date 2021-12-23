@@ -26,10 +26,10 @@ export class EmployeesController {
     return this.employeesService.create(libraryId, createEmployeeDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.employeesService.remove(id);
-  }
+  // @Delete(':libraryId/:id')
+  // remove(@Param('libraryId') libraryId: string, @Param('id') id: string) {
+  //   return this.employeesService.remove(libraryId, id);
+  // }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
