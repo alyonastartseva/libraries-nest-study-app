@@ -25,10 +25,10 @@ export class Library {
   description: string;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }] })
-  employees: Employee[];
+  employee: Employee[];
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }] })
-  books: Book[];
+  book: Book[];
   
 }
 

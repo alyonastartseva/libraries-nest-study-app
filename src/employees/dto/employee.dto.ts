@@ -1,4 +1,4 @@
-export class UpdateEmployeeDto {
+export class EmployeeDto {
   readonly firstName: string;
   readonly lastName: string;
   readonly position: string;

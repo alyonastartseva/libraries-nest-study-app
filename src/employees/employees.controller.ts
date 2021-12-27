@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 
-import { CreateEmployeeDto } from './dto/create-employee.dto';
-import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { EmployeeDto } from './dto/employee.dto';
 import { EmployeesService } from './employees.service';
 import { Employee } from './schemas/employee.schema';
 
@@ -15,6 +14,11 @@ export class EmployeesController {
     return this.employeesService.getAll();
   }
 
+  @Get('byLibrary/:libraryId')
+  getAllByLibrary(@Param('libraryId') libraryId: string): Promise<Employee[]> {
+    return this.employeesService.getAllByLibrary(libraryId);
+  }
+
   @Get(':id')
   getById(@Param('id') id: string) {
     return this.employeesService.getById(id);
@@ -22,17 +26,17 @@ export class EmployeesController {
 
   @Post(':libraryId')
   @HttpCode(HttpStatus.CREATED)
-  create(@Param('libraryId') libraryId: string, @Body() createEmployeeDto: CreateEmployeeDto) {
-    return this.employeesService.create(libraryId, createEmployeeDto);
+  create(@Param('libraryId') libraryId: string, @Body() employeeDto: EmployeeDto) {
+    return this.employeesService.create(libraryId, employeeDto);
   }
 
-  // @Delete(':libraryId/:id')
-  // remove(@Param('libraryId') libraryId: string, @Param('id') id: string) {
-  //   return this.employeesService.remove(libraryId, id);
-  // }
-
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
-    return this.employeesService.update(id, updateEmployeeDto);
+  update(@Param('id') id: string, @Body() employeeDto: EmployeeDto) {
+    return this.employeesService.update(id, employeeDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.employeesService.remove(id);
   }
 }
